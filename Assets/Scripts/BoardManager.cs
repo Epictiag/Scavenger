@@ -32,7 +32,7 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
-
+    private int days = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -115,8 +115,17 @@ public class BoardManager : MonoBehaviour
         //enemyCount += 1;
         //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         //Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
-
+        
         TextAsset levelAsset = Resources.Load("day1") as TextAsset;
+        
+        if (days == 2)
+        {
+            levelAsset = Resources.Load("day2") as TextAsset;
+        }
+        else if (days == 3)
+        {
+            levelAsset = Resources.Load("day3") as TextAsset;
+        }
 
 
         string[] lines = levelAsset.text.Split('\n');
@@ -160,5 +169,6 @@ public class BoardManager : MonoBehaviour
             }
 
         }
+        days++;
     }
 }
