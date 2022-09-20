@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
         if (level == 4)
         {
             SoundManager.instance.musicSource.Stop();
-            levelText.text = "You Survived " + level + " days!!!";
+            levelText.text = "You Survived 3 days!!!";
             Time.timeScale = 0;
         }
         else
