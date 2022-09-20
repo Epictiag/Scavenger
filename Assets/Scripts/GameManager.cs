@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;        //Allows us to use Lists. 
 using UnityEngine.UI;                    //Allows us to use UI.
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         // Add one so when Scene is reloaded we'll move to the next level
         level++;
-
+        
         InitGame();
     }
 
@@ -81,8 +82,17 @@ public class GameManager : MonoBehaviour
         //Get a reference to our text LevelText's text component by finding it by name and calling GetComponent.
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
 
+
         //Set the text of levelText to the string "Day" and append the current level number.
-        levelText.text = "Day " + level;
+        if (level < 4)
+        {
+            levelText.text = "Day " + level;
+        }
+        else 
+        {
+            GameOver();
+        }
+
 
         //Set levelImage to active blocking player's view of the game board during setup.
         levelImage.SetActive(true);
@@ -133,8 +143,18 @@ public class GameManager : MonoBehaviour
     //GameOver is called when the player reaches 0 food points
     public void GameOver()
     {
-        //Set levelText to display number of levels passed and game over message
-        levelText.text = "After " + level + " days, you starved.";
+        if (level == 4)
+        {
+            SoundManager.instance.musicSource.Stop();
+            levelText.text = "You Survived " + level + " days!!!";
+            Time.timeScale = 0;
+        }
+        else
+        {
+            //Set levelText to display number of levels passed and game over message
+            levelText.text = "After " + level + " days, you starved.";
+        }
+        
 
         //Enable black background image gameObject.
         levelImage.SetActive(true);
